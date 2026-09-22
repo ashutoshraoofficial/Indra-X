@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -euo pipefail
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+
+if [ -x "/usr/local/bin/node" ]; then
+  NODE_BIN="/usr/local/bin/node"
+elif [ -x "/opt/homebrew/bin/node" ]; then
+  NODE_BIN="/opt/homebrew/bin/node"
+elif command -v node >/dev/null 2>&1; then
+  NODE_BIN="$(command -v node)"
+else
+  echo "Error: Node.js 22+ not found." >&2
+  exit 1
+fi
+
+export OPENCLAW_STATE_DIR="${OPENCLAW_STATE_DIR:-$(cd "$DIR/.." && pwd)/indra-state}"
+
+exec "$NODE_BIN" "$DIR/dist/entry.js" "$@"

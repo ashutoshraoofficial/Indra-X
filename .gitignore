@@ -1,0 +1,24 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Python Cache & Builds
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+*.egg-info/
+
+# Logs & Temporary Files
+*.log
+indra-state/*.log
+indra-state/sessions/
+indra_ai_lite_package.tar.gz
+.tmp/
+*.tmp
+
+# System Files
+.DS_Store
+Thumbs.db

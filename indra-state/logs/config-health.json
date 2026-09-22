@@ -1,0 +1,22 @@
+{
+  "entries": {
+    "/Users/ashutoshrao/Desktop/Industrial AI Agent Project/indra-state/openclaw.json": {
+      "lastKnownGood": {
+        "hash": "57a16e6acc5d0c3ebe1b91c92d501a3fd850962e3b5542dbac56397cb310e33d",
+        "bytes": 1208,
+        "mtimeMs": 1788984552162.9363,
+        "ctimeMs": 1788985422656.8276,
+        "dev": "16777233",
+        "ino": "45061158",
+        "mode": 420,
+        "nlink": 1,
+        "uid": 501,
+        "gid": 20,
+        "hasMeta": false,
+        "gatewayMode": null,
+        "observedAt": "2026-09-10T03:26:06.885Z"
+      },
+      "lastObservedSuspiciousSignature": null
+    }
+  }
+}

@@ -1,0 +1,79 @@
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor': '#ffffff', 'primaryTextColor': '#1e293b', 'lineColor': '#475569', 'clusterBkg': '#f8fafc', 'clusterBorder': '#cbd5e1'}}}%%
+graph TD
+    classDef frontend fill:#ffffff,stroke:#3b82f6,stroke-width:2px,color:#1e293b,font-weight:bold
+    classDef backend fill:#ffffff,stroke:#8b5cf6,stroke-width:2px,color:#1e293b,font-weight:bold
+    classDef model fill:#ffffff,stroke:#10b981,stroke-width:2px,color:#1e293b,font-weight:bold
+    classDef tune fill:#ffffff,stroke:#059669,stroke-width:2px,color:#1e293b,font-weight:bold
+    classDef mcp fill:#ffffff,stroke:#f59e0b,stroke-width:2px,color:#1e293b,font-weight:bold
+    classDef hardware fill:#ffffff,stroke:#ef4444,stroke-width:2px,color:#1e293b,font-weight:bold
+
+    subgraph L1 [Level 1: The Terminal Agent]
+        UI[fa:fa-terminal Interactive CLI Assistant<br/>Forked Terminal]
+        UI_File[fa:fa-file-code Local File Editor]
+        UI_Exec[fa:fa-play E2B / Firecracker Execution]
+        
+        UI --- UI_File
+        UI --- UI_Exec
+    end
+    class L1,UI,UI_File,UI_Exec frontend
+
+    subgraph L2 [Level 2: LangGraph Orchestration]
+        Router[fa:fa-network-wired LangGraph State Machine<br/>Forked Orchestrator]
+        AgentOps[fa:fa-cogs Operations Agent]
+        AgentSafe[fa:fa-hard-hat Safety & Compliance]
+        AgentMaint[fa:fa-wrench Maintenance Agent]
+        
+        Router --> AgentOps
+        Router --> AgentSafe
+        Router --> AgentMaint
+    end
+    class L2,Router,AgentOps,AgentSafe,AgentMaint backend
+
+    UI <==> Router
+
+    subgraph L3A [Level 3A: Fine-Tuning Pipeline]
+        RawData[fa:fa-database MRPL P&IDs, Logs]
+        Tune[fa:fa-sync Axolotl / Unsloth<br/>LoRA Training]
+        Weights[fa:fa-weight-hanging Custom Adapters]
+        
+        RawData --> Tune
+        Tune --> Weights
+    end
+    class L3A,RawData,Tune,Weights tune
+
+    subgraph L3B [Level 3B: Local AI & Vision]
+        vLLM[fa:fa-server vLLM Serving Engine]
+        Qwen[fa:fa-brain Qwen2.5-VL / Llama-3.3]
+        Qdrant[fa:fa-database Qdrant Vector DB]
+        Docling[fa:fa-file-pdf Docling + PaddleOCR]
+        
+        Weights -.-> Qwen
+        vLLM --- Qwen
+        Qdrant --- Docling
+    end
+    class L3B,vLLM,Qwen,Qdrant,Docling model
+
+    Router <==> vLLM
+    AgentSafe <==> Qdrant
+
+    subgraph L4 [Level 4: FastMCP Protocol Bridges]
+        MCP_Doc[fa:fa-plug Document MCP<br/>Reads Drawings]
+        MCP_Sensor[fa:fa-plug Sensor / IoT MCP<br/>OPC-UA Bridge]
+        MCP_Box[fa:fa-plug Execution Sandbox MCP<br/>Isolated Analysis]
+    end
+    class L4,MCP_Doc,MCP_Sensor,MCP_Box mcp
+
+    AgentSafe <==> MCP_Doc
+    AgentOps <==> MCP_Sensor
+    UI_Exec <==> MCP_Box
+
+    subgraph L5 [Level 5: Physical Assets]
+        DCS[fa:fa-industry DCS / SCADA Systems]
+        Docs[fa:fa-folder-open Internal SharePoint]
+        Network[fa:fa-shield-alt Air-Gapped Network]
+    end
+    class L5,DCS,Docs,Network hardware
+
+    MCP_Sensor <.-> DCS
+    MCP_Doc <.-> Docs
+    MCP_Box <.-> Network

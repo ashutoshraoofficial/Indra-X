@@ -1,0 +1,79 @@
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor': '#ffffff', 'primaryTextColor': '#1e293b', 'lineColor': '#475569', 'clusterBkg': '#f8fafc', 'clusterBorder': '#cbd5e1'}}}%%
+graph TB
+    classDef security fill:#F8FAFC,stroke:#94A3B8,stroke-width:2px,color:#0F172A
+    classDef oslayer fill:#EFF6FF,stroke:#3B82F6,stroke-width:2px,color:#1E3A8A,font-weight:bold
+    classDef agents fill:#FAF5FF,stroke:#A855F7,stroke-width:2px,color:#581C87,font-weight:bold
+    classDef models fill:#FFFBEB,stroke:#F59E0B,stroke-width:2px,color:#92400E
+    classDef loop fill:#F0FDF4,stroke:#10B981,stroke-width:2px,color:#064E3B
+    classDef sidebars fill:#F1F5F9,stroke:#64748B,stroke-width:2px,color:#0F172A
+
+    subgraph L1 [1. AIR-GAPPED INFRASTRUCTURE & SECURITY]
+        direction LR
+        S1[fa:fa-lock No Outbound Internet]
+        S2[fa:fa-ban No External APIs]
+        S3[fa:fa-terminal Secure Code Sandbox]
+        S4[fa:fa-server 100% On-Premises]
+    end
+    class L1,S1,S2,S3,S4 security
+
+    subgraph L2 [2. OS LAYER - Workbench Operating System]
+        direction LR
+        U[fa:fa-users Users<br>Engineers/Operators]
+        W[fa:fa-tasks Task Workspace]
+        A[fa:fa-shield-alt Access Control]
+        L[fa:fa-list Audit & Logs]
+        D[fa:fa-chart-bar Dashboards]
+    end
+    class L2,U,W,A,L,D oslayer
+
+    subgraph L3 [3. MULTI-AGENT ORCHESTRATION & MCP]
+        direction LR
+        MCP[fa:fa-project-diagram MCP GATEWAY<br>Standard Interface]
+        Plan[fa:fa-brain Planner Agent]
+        Eng[fa:fa-cogs Engineering Agent]
+        Safe[fa:fa-hard-hat Safety Agent]
+        Fin[fa:fa-rupee-sign Finance Agent]
+        Comp[fa:fa-gavel Compliance Agent]
+        
+        MCP <--> Plan
+        Plan <--> Eng & Safe & Fin & Comp
+    end
+    class L3,MCP,Plan,Eng,Safe,Fin,Comp agents
+
+    subgraph L4 [4. MODEL-AGNOSTIC ROUTING & REGISTRY]
+        direction LR
+        MR[fa:fa-brain Reasoning Model]
+        MC[fa:fa-code Coding Model]
+        MV[fa:fa-eye Vision / OCR Model]
+        ME[fa:fa-project-diagram Embedding Model]
+        Reg[fa:fa-database Model Registry]
+    end
+    class L4,MR,MC,MV,ME,Reg models
+
+    subgraph L5 [5. AUTONOMOUS AGENT EXECUTION LOOP]
+        direction LR
+        E1((1. Understand)) --> E2((2. Plan))
+        E2 --> E3((3. Retrieve/Execute))
+        E3 --> E4((4. Inspect))
+        E4 --> E5((5. Verify))
+        E5 -- No --> E3
+        E5 -- Yes --> E6((Deliver Output))
+    end
+    class L5,E1,E2,E3,E4,E5,E6 loop
+
+    Knowledge[fa:fa-project-diagram INDUSTRIAL KNOWLEDGE GRAPHS<br>P&IDs, SOPs, Maintenance]
+    Vision[fa:fa-eye ENGINEERING DRAWING INTELLIGENCE<br>Tag/Line Extraction]
+    Hardware[fa:fa-desktop DISTRIBUTED HARDWARE WORKSTATIONS<br>Scalable Nodes]
+    Integration[fa:fa-industry INDUSTRIAL AUTOMATION INTEGRATION<br>DCS / SCADA / ERP]
+    
+    class Knowledge,Vision,Hardware,Integration sidebars
+
+    L1 --> L2
+    L2 --> L3
+    L3 --> L4
+    L4 --> L5
+    
+    Knowledge --> L2
+    Vision --> L4
+    L5 --> Integration
+    L5 --> Hardware

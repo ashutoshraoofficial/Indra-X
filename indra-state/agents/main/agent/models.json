@@ -1,0 +1,44 @@
+{
+  "providers": {
+    "ollama": {
+      "baseUrl": "http://127.0.0.1:11434",
+      "api": "ollama",
+      "models": [
+        {
+          "id": "gemma4:12b",
+          "name": "Gemma 4 12B (Industrial)",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "contextWindow": 32768,
+          "maxTokens": 8192
+        },
+        {
+          "id": "gemma4:e4b",
+          "name": "Gemma 4 E4B (Fast)",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "contextWindow": 32768,
+          "maxTokens": 8192
+        },
+        {
+          "id": "indra-reasoning",
+          "name": "Indra Sovereign Reasoning",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "contextWindow": 32768,
+          "maxTokens": 8192
+        }
+      ],
+      "apiKey": "ollama-local"
+    }
+  }
+}
